@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MangaCollect</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_pdf_viewer">PdfViewerActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+</resources>
