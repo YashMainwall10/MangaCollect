@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mangacollect.LoginActivity
 import com.example.mangacollect.ui.theme.CardColor
 import com.example.mangacollect.view_models.signUpViewModel
 
@@ -29,7 +30,7 @@ class signUpScren {
 }
 
 @Composable
-fun signUpScreen(myViewModel: signUpViewModel, context : Context) {
+fun signUpScreen(myViewModel: signUpViewModel , createUser : (String , String , String)->Unit , toLoginActivity:()->Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,7 +67,9 @@ fun signUpScreen(myViewModel: signUpViewModel, context : Context) {
 
                 Box {
                     Column {
-                        Button(onClick = { },
+                        Button(onClick = {
+                                         createUser(myViewModel.name.value , myViewModel.email.value , myViewModel.password.value)
+                        },
                             modifier = Modifier.fillMaxWidth(1f)) {
                             Text(text = "Sign Up")
                         }
@@ -76,10 +79,9 @@ fun signUpScreen(myViewModel: signUpViewModel, context : Context) {
                             color = Color.White,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 15.dp)
+                                .padding(top = 15.dp , bottom = 15.dp)
                                 .clickable {
-//                                    var intent = Intent(context, LoginAcitivity::class.java)
-//                                    context.startActivity(intent)
+                                    toLoginActivity()
                                 })
                     }
                 }

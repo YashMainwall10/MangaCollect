@@ -42,13 +42,14 @@ import com.example.mangacollect.ui.theme.CardColor
 import com.example.mangacollect.ui.theme.PurpleGrey80
 
 import com.example.mangacollect.view_models.loginScreenViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class loginScreen {
 
 }
 
 @Composable
-fun loginScreen(myViewModel: loginScreenViewModel, context : Context , finish : ()->Unit) {
+fun loginScreen(myViewModel: loginScreenViewModel , toSignUpActivity : ()->Unit , signInUser : (String , String)->Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -84,9 +85,7 @@ fun loginScreen(myViewModel: loginScreenViewModel, context : Context , finish : 
                 Box {
                     Column {
                         Button(onClick = {
-                            var intent = Intent(context , MangaCollectionScreen::class.java)
-                            context.startActivity(intent)
-                            finish()
+                            signInUser(myViewModel.email.value , myViewModel.password.value)
                         },
                             modifier = Modifier.fillMaxWidth(1f)) {
                             Text(text = "Sign In")
@@ -99,8 +98,7 @@ fun loginScreen(myViewModel: loginScreenViewModel, context : Context , finish : 
                                 .fillMaxWidth()
                                 .padding(top = 15.dp)
                                 .clickable {
-                                    var intent = Intent(context, SignUpActivity::class.java)
-                                    context.startActivity(intent)
+                                    toSignUpActivity()
                                 })
                     }
                 }
@@ -127,6 +125,10 @@ fun mailText(Typo: String, str: MutableState<String> , pass : Boolean) {
             onValueChange = {
                 str.value = it
             },
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedTextColor = Color.White,
+                focusedTextColor = Color.White
+            ),
             singleLine = true,
             label = { Text(Typo, fontSize = 12.sp , color = Color.White) },
             textStyle = TextStyle(fontSize = 15.sp),
@@ -137,7 +139,7 @@ fun mailText(Typo: String, str: MutableState<String> , pass : Boolean) {
             else{
                 VisualTransformation.None
             },
-            colors = OutlinedTextFieldDefaults.colors(Color.White)
+
         )
 }
 
